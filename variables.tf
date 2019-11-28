@@ -35,7 +35,7 @@ variable "private_subnet_tags" {
 variable "product" {}
 
 variable "storage_subnet_tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 
