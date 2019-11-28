@@ -63,16 +63,6 @@ variable "rds_subnet" {
   default     = false
 }
 
-variable "public_isolated_subnet" {
-  description = "To enable public isolated subnet set 'true'"
-  default     = false
-}
-
-variable "public_isolated_subnet_tags" {
-  type    = "map"
-  default = {}
-}
-
 variable "technicalContact" {
   description = "A email to reach out when needed."
 }

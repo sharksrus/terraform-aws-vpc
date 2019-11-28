@@ -19,12 +19,57 @@ output "public_route_tables" {
 
 ### SUBBNETS ###
 ## IDs ##
-output "mgmt_subnet_ids" {
-  value = ["${aws_subnet.mgmt.*.id}"]
+
+## private
+output "private_subnet1_id_0" {
+  value = "${aws_subnet.private.0.id}"
 }
+
+output "private_subnet1_id_1" {
+  value = "${aws_subnet.private.1.id}"
+}
+
+output "private_subnet1_id_2" {
+  value = "${aws_subnet.private.2.id}"
+}
+
+## private2
+output "private_subnet2_id_0" {
+  value = "${aws_subnet.private2.0.id}"
+}
+
+output "private_subnet2_id_1" {
+  value = "${aws_subnet.private2.1.id}"
+}
+
+output "private_subnet2_id_2" {
+  value = "${aws_subnet.private2.2.id}"
+}
+## private3
+output "private_subnet3_id_0" {
+  value = "${aws_subnet.private3.0.id}"
+}
+
+output "private_subnet3_id_1" {
+  value = "${aws_subnet.private3.1.id}"
+}
+
+output "private_subnet3_id_2" {
+  value = "${aws_subnet.private3.2.id}"
+}
+
+###
 
 output "private_subnet_ids" {
   value = "${aws_subnet.private.*.id}"
+}
+
+output "private_subnet_ids2" {
+  value = "${aws_subnet.private2.*.id}"
+}
+
+output "private_subnet_ids3" {
+  value = "${aws_subnet.private3.*.id}"
 }
 
 output "public_subnet_ids" {
@@ -39,29 +84,8 @@ output "storage_subnet_ids" {
   value = ["${aws_subnet.storage.*.id}"]
 }
 
-output "public_isolated_subnet_ids" {
-  value = ["${aws_subnet.public_isolated.*.id}"]
-}
-
-#Output Prive subnets each
-## private
-output "private_subnet_id_0" {
-  value = "${aws_subnet.private.0.id}"
-}
-
-output "private_subnet_id_1" {
-  value = "${aws_subnet.private.1.id}"
-}
-
-output "private_subnet_id_2" {
-  value = "${aws_subnet.private.2.id}"
-}
 
 ## CIDRs ##
-
-output "mgmt_subnet_cidrs" {
-  value = ["${aws_subnet.mgmt.*.cidr_block}"]
-}
 
 output "private_subnet_cidrs" {
   value = ["${aws_subnet.private.*.cidr_block}"]

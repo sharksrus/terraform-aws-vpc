@@ -13,18 +13,6 @@ resource "aws_route" "default_public" {
   depends_on             = ["aws_route_table.public"]
 }
 
-resource "aws_route_table" "public_isolated" {
-  count  = "${var.public_isolated_subnet ? length(var.availability_zones) : 0}"
-  vpc_id = "${aws_vpc.vpc.id}"
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.igw.id}"
-  }
-
-  tags = "${merge(local.defaultTags, map("Name", "public-isolated-${element(var.availability_zones, count.index)}-${var.env}-${var.vpc_name}"))}"
-}
-
 resource "aws_route_table" "private" {
   count  = "${length(var.availability_zones)}"
   vpc_id = "${aws_vpc.vpc.id}"
@@ -40,19 +28,27 @@ resource "aws_route" "default_private" {
   depends_on             = ["aws_route_table.private"]
 }
 
-resource "aws_route_table_association" "mgmt" {
-  count = "${length(var.availability_zones)}"
-
-  subnet_id      = "${element(aws_subnet.mgmt.*.id, count.index)}"
-  route_table_id = "${element(aws_route_table.public.*.id, count.index)}"
-}
-
 resource "aws_route_table_association" "private" {
   count = "${length(var.availability_zones)}"
 
   subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
   route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 }
+
+resource "aws_route_table_association" "private2" {
+  count = "${length(var.availability_zones)}"
+
+  subnet_id      = "${element(aws_subnet.private2.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+}
+
+resource "aws_route_table_association" "private3" {
+  count = "${length(var.availability_zones)}"
+
+  subnet_id      = "${element(aws_subnet.private3.*.id, count.index)}"
+  route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+}
+
 
 resource "aws_route_table_association" "public" {
   count = "${length(var.availability_zones)}"
@@ -61,16 +57,25 @@ resource "aws_route_table_association" "public" {
   route_table_id = "${element(aws_route_table.public.*.id, count.index)}"
 }
 
-resource "aws_route_table_association" "public_isolated" {
-  count = "${var.public_isolated_subnet ? length(var.availability_zones) : 0}"
-
-  subnet_id      = "${element(aws_subnet.public_isolated.*.id, count.index)}"
-  route_table_id = "${element(aws_route_table.public_isolated.*.id, count.index)}"
-}
-
 resource "aws_route_table_association" "rds" {
   count = "${var.rds_subnet ? length(var.availability_zones) : 0}"
 
   subnet_id      = "${element(aws_subnet.rds.*.id, count.index)}"
   route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+}
+
+resource "aws_route" "vpc_peers_private" {
+  count                     = "${length(var.availability_zones)}"
+  route_table_id            = "${element(aws_route_table.private.*.id, count.index)}"
+  destination_cidr_block    = "${lookup(var.peering_vpc_cidrs, "${var.env}")}"
+  vpc_peering_connection_id = "${element(aws_vpc_peering_connection.environments.*.id, index(var.peering_vpc_environments, "${var.env}"))}"
+  depends_on                = ["aws_route_table.private"]
+}
+
+resource "aws_route" "vpc_peers_public" {
+  count                     = "${length(var.availability_zones)}"
+  route_table_id            = "${element(aws_route_table.public.*.id, count.index)}"
+  destination_cidr_block    = "${lookup(var.peering_vpc_cidrs, "${var.env}")}"
+  vpc_peering_connection_id = "${element(aws_vpc_peering_connection.environments.*.id, index(var.peering_vpc_environments, "${var.env}"))}"
+  depends_on                = ["aws_route_table.public"]
 }
