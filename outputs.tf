@@ -108,10 +108,10 @@ output "nat_gateway_public_ips1" {
   value = "${aws_eip.nat.0.public_ip}"
 }
 
-output "nat_gateway_public_ips2" {
-  value = "${aws_eip.nat.1.public_ip}"
-}
+# output "nat_gateway_public_ips2" {
+#   value = "${aws_eip.nat.1.public_ip}"
+# }
 
-output "nat_gateway_public_ips3" {
-  value = "${aws_eip.nat.2.public_ip}"
-}
+# output "nat_gateway_public_ips3" {
+#   value = "${aws_eip.nat.2.public_ip}"
+# }
