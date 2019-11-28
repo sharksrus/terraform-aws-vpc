@@ -63,19 +63,3 @@ resource "aws_route_table_association" "rds" {
   subnet_id      = "${element(aws_subnet.rds.*.id, count.index)}"
   route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 }
-
-resource "aws_route" "vpc_peers_private" {
-  count                     = "${length(var.availability_zones)}"
-  route_table_id            = "${element(aws_route_table.private.*.id, count.index)}"
-  destination_cidr_block    = "${lookup(var.peering_vpc_cidrs, "${var.env}")}"
-  vpc_peering_connection_id = "${element(aws_vpc_peering_connection.environments.*.id, index(var.peering_vpc_environments, "${var.env}"))}"
-  depends_on                = ["aws_route_table.private"]
-}
-
-resource "aws_route" "vpc_peers_public" {
-  count                     = "${length(var.availability_zones)}"
-  route_table_id            = "${element(aws_route_table.public.*.id, count.index)}"
-  destination_cidr_block    = "${lookup(var.peering_vpc_cidrs, "${var.env}")}"
-  vpc_peering_connection_id = "${element(aws_vpc_peering_connection.environments.*.id, index(var.peering_vpc_environments, "${var.env}"))}"
-  depends_on                = ["aws_route_table.public"]
-}
