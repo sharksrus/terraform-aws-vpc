@@ -23,12 +23,12 @@ variable "env" {
 variable "owner" {}
 
 variable "public_subnet_tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 
 variable "private_subnet_tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 
@@ -40,7 +40,7 @@ variable "storage_subnet_tags" {
 }
 
 variable "rds_subnet_tags" {
-  type    = "map"
+  type    = map
   default = {}
 }
 

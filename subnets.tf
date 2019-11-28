@@ -9,7 +9,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "storage" {
-  count             = "${var.storage_subnet ? length(var.availability_zones) : 0}"
+  count             = var.storage_subnet ? length(var.availability_zones) : 0
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet("${var.vpc_cidr}", 7, 6 + count.index)
@@ -17,7 +17,7 @@ resource "aws_subnet" "storage" {
 }
 
 resource "aws_subnet" "rds" {
-  count             = "${var.rds_subnet ? length(var.availability_zones) : 0}"
+  count             = var.rds_subnet ? length(var.availability_zones) : 0
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet("${var.vpc_cidr}", 7, 9 + count.index)

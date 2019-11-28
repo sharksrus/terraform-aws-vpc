@@ -9,8 +9,8 @@ resource "aws_route" "default_public" {
   count                  = length(var.availability_zones)
   route_table_id         = element(aws_route_table.public.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.igw.id}"
-  depends_on             = ["aws_route_table.public"]
+  gateway_id             = aws_internet_gateway.igw.id
+  depends_on             = [aws_route_table.public]
 }
 
 resource "aws_route_table" "private" {
@@ -25,7 +25,7 @@ resource "aws_route" "default_private" {
   route_table_id         = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = element(aws_nat_gateway.nat.*.id, count.index)
-  depends_on             = ["aws_route_table.private"]
+  depends_on             = [aws_route_table.private]
 }
 
 resource "aws_route_table_association" "private" {
