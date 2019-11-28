@@ -1,3 +1,4 @@
+
 variable "additionalTags" {
   default = {}
 }
@@ -12,23 +13,13 @@ variable "availability_zones" {
 }
 
 variable "region" {
-  default     = "us-east-1"
+  default     = "us-east-2"
   description = "AWS Region. i.e us-east-1"
-}
-
-variable "businessUnit" {
-  description = "Used to identify the cost center or business unit associated with a resource; typically for cost allocation and tracking"
 }
 
 variable "env" {
   description = "Environment name"
 }
-
-variable "mgmt_subnet_tags" {
-  type    = "map"
-  default = {}
-}
-
 variable "owner" {}
 
 variable "public_subnet_tags" {
