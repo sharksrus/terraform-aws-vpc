@@ -22,8 +22,8 @@ output "public_route_tables" {
 
 output "all_private_subnet_ids" {
   value = [
-    "${aws_subnet.private.*.id}"
-    "${aws_subnet.private2.*.id}"
+    "${aws_subnet.private.*.id}",
+    "${aws_subnet.private2.*.id}",
     "${aws_subnet.private3.*.id}"
     ]
 }
