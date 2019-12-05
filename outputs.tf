@@ -20,6 +20,14 @@ output "public_route_tables" {
 ### SUBBNETS ###
 ## IDs ##
 
+output "all_private_subnet_ids" {
+  value = [
+    "${aws_subnet.private.*.id}"
+    "${aws_subnet.private2.*.id}"
+    "${aws_subnet.private3.*.id}"
+    ]
+}
+
 ## private
 output "private_subnet1_id_0" {
   value = "${aws_subnet.private.0.id}"
