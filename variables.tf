@@ -54,7 +54,7 @@ variable "rds_subnet" {
   default     = false
 }
 
-variable "technicalContact" {
+variable "technicalcontact" {
   description = "A email to reach out when needed."
 }
 

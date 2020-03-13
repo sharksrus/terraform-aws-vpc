@@ -1,7 +1,7 @@
 locals {
   defaultTags = {
     Environment      = var.env
-    TechnicalContact = var.technicalContact
+    technicalcontact = var.technicalcontact
     Product          = var.product
     Owner            = var.owner
   }

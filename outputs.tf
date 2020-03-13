@@ -22,10 +22,10 @@ output "public_route_tables" {
 
 output "all_private_subnet_ids" {
   value = [
-    "${aws_subnet.private.*.id}",
-    "${aws_subnet.private2.*.id}",
-    "${aws_subnet.private3.*.id}"
-    ]
+    "${aws_subnet.private.*.id}"
+    # "${aws_subnet.private2.*.id}",
+    # "${aws_subnet.private3.*.id}"
+  ]
 }
 
 ## private
@@ -41,30 +41,30 @@ output "private_subnet1_id_2" {
   value = "${aws_subnet.private.2.id}"
 }
 
-## private2
-output "private_subnet2_id_0" {
-  value = "${aws_subnet.private2.0.id}"
-}
+# ## private2
+# output "private_subnet2_id_0" {
+#   value = "${aws_subnet.private2.0.id}"
+# }
 
-output "private_subnet2_id_1" {
-  value = "${aws_subnet.private2.1.id}"
-}
+# output "private_subnet2_id_1" {
+#   value = "${aws_subnet.private2.1.id}"
+# }
 
-output "private_subnet2_id_2" {
-  value = "${aws_subnet.private2.2.id}"
-}
-## private3
-output "private_subnet3_id_0" {
-  value = "${aws_subnet.private3.0.id}"
-}
+# output "private_subnet2_id_2" {
+#   value = "${aws_subnet.private2.2.id}"
+# }
+# ## private3
+# output "private_subnet3_id_0" {
+#   value = "${aws_subnet.private3.0.id}"
+# }
 
-output "private_subnet3_id_1" {
-  value = "${aws_subnet.private3.1.id}"
-}
+# output "private_subnet3_id_1" {
+#   value = "${aws_subnet.private3.1.id}"
+# }
 
-output "private_subnet3_id_2" {
-  value = "${aws_subnet.private3.2.id}"
-}
+# output "private_subnet3_id_2" {
+#   value = "${aws_subnet.private3.2.id}"
+# }
 
 ###
 
@@ -72,13 +72,13 @@ output "private_subnet_ids" {
   value = "${aws_subnet.private.*.id}"
 }
 
-output "private_subnet_ids2" {
-  value = "${aws_subnet.private2.*.id}"
-}
+# output "private_subnet_ids2" {
+#   value = "${aws_subnet.private2.*.id}"
+# }
 
-output "private_subnet_ids3" {
-  value = "${aws_subnet.private3.*.id}"
-}
+# output "private_subnet_ids3" {
+#   value = "${aws_subnet.private3.*.id}"
+# }
 
 output "public_subnet_ids" {
   value = ["${aws_subnet.public.*.id}"]

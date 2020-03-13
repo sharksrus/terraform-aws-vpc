@@ -35,21 +35,6 @@ resource "aws_route_table_association" "private" {
   route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
-resource "aws_route_table_association" "private2" {
-  count = length(var.availability_zones)
-
-  subnet_id      = element(aws_subnet.private2.*.id, count.index)
-  route_table_id = element(aws_route_table.private.*.id, count.index)
-}
-
-resource "aws_route_table_association" "private3" {
-  count = length(var.availability_zones)
-
-  subnet_id      = element(aws_subnet.private3.*.id, count.index)
-  route_table_id = element(aws_route_table.private.*.id, count.index)
-}
-
-
 resource "aws_route_table_association" "public" {
   count = length(var.availability_zones)
 
