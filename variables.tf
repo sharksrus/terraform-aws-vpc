@@ -13,7 +13,6 @@ variable "availability_zones" {
 }
 
 variable "region" {
-  default     = "us-east-2"
   description = "AWS Region. i.e us-east-1"
 }
 
