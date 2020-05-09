@@ -13,7 +13,7 @@ variable "availability_zones" {
 }
 
 variable "region" {
-  default     = "us-east-2"
+  default     = ""
   description = "AWS Region. i.e us-east-1"
 }
 
@@ -60,7 +60,7 @@ variable "technicalcontact" {
 
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
-  default     = "0.0.0.0/0"
+  default     = ""
 }
 
 variable "vpc_name" {
