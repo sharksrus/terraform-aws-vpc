@@ -20,7 +20,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route" "default_private" {
-  count                  = length(var.availability_zones)
+  count  = var.private_subnet ? length(var.availability_zones) : 0
   route_table_id         = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.nat.0.id
