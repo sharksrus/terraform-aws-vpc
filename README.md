@@ -1,8 +1,7 @@
-## TERRAFORM 0.12.x REQUIRED
+## TERRAFORM 0.13.x REQUIRED
 
 ### Assumptions
 * /16
-* 4 AZs (based on us-west-2)
 
 ### Buildout
 * /24s public

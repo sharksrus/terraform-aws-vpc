@@ -1,6 +1,5 @@
 resource "aws_eip" "nat" {
-  //count = length(var.availability_zones)
-  count = 1
+  count = var.private_subnet ? length(var.availability_zones) : 0
   vpc   = true
 
   tags = merge(local.defaultTags, var.additionalTags, map("Name", "nat-eip-2a-${var.vpc_name}-${var.env}"))
@@ -8,8 +7,7 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_nat_gateway" "nat" {
-  //count         = length(var.availability_zones)
-  count         = 1
+  count         = var.private_subnet ? length(var.availability_zones) : 0
   allocation_id = aws_eip.nat.0.id
   subnet_id     = aws_subnet.public.0.id
   depends_on    = [aws_subnet.public]
