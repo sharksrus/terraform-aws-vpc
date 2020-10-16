@@ -25,7 +25,7 @@ resource "aws_subnet" "rds" {
 }
 
 resource "aws_subnet" "private" {
-  count             = length(var.availability_zones)
+  count             = var.private_subnet ? length(var.availability_zones) : 0
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet("${var.vpc_cidr}", 4, 2 + count.index)
