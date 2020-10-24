@@ -1,20 +1,20 @@
 ### VPC ###
 
 output "vpc_id" {
-  value = "${aws_vpc.vpc.id}"
+  value = aws_vpc.vpc.id
 }
 
 output "vpc_cidr" {
-  value = "${aws_vpc.vpc.cidr_block}"
+  value = aws_vpc.vpc.cidr_block
 }
 
 ## route tables ##
 output "private_route_tables" {
-  value = ["${aws_route_table.private.*.id}"]
+  value = [aws_route_table.private.*.id]
 }
 
 output "public_route_tables" {
-  value = ["${aws_route_table.public.*.id}"]
+  value = [aws_route_table.public.*.id]
 }
 
 ### SUBBNETS ###
@@ -22,7 +22,7 @@ output "public_route_tables" {
 
 output "all_private_subnet_ids" {
   value = [
-    "${aws_subnet.private.*.id}"
+    aws_subnet.private.*.id
   ]
 }
 
