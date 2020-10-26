@@ -1,0 +1,60 @@
+---
+name: 'CI'
+on:
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  terrraform_fmt:
+    name: 'terraform-fmt'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'checkout'
+        uses: 'actions/checkout@v2'
+      - name: 'log-into-github-registry'
+        run: |
+          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: 'terraform-format'
+        id: 'terraform-fmt'
+        run: |
+          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-terraform/terraform:13 fmt -check -diff
+        shell: 'bash'
+
+  tflint:
+    name: 'terraform-lint'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'checkout'
+        uses: 'actions/checkout@v2'
+      - name: 'log-into-github-registry'
+        run: |
+          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: 'tflint'
+        id: 'tflint'
+        run: |
+          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-tflint/tflint:latest .
+        shell: 'bash'
+
+  tfsec:
+    name: 'terraform-security'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'checkout'
+        uses: 'actions/checkout@v2'
+      - name: 'log-into-github-registry'
+        run: |
+          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: 'tfsec'
+        id: 'tfsec'
+        run: |
+          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-tfsec/tfsec:latest .
+        shell: 'bash'
+
+  yamllint:
+    name: 'yamllint'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+      - uses: 'ibiqlik/action-yamllint@master'
+        with:
+          config_file: '.yamllint'
