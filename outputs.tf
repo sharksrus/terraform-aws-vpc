@@ -16,8 +16,8 @@ output "subnets_rds" {
   value = aws_subnet.rds
 }
 
-output "subnets_private" {
-  value = aws_subnet.private
+output "subnets_storage" {
+  value = aws_subnet.storage
 }
 
 output "nat_gw_eips" {
