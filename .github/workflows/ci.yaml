@@ -10,7 +10,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'checkout'
-        uses: 'actions/checkout@v2'
+        uses: 'actions/checkout@v2.3.4'
       - name: 'log-into-github-registry'
         run: |
           echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -25,7 +25,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'checkout'
-        uses: 'actions/checkout@v2'
+        uses: 'actions/checkout@v2.3.4'
       - name: 'log-into-github-registry'
         run: |
           echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -40,7 +40,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'checkout'
-        uses: 'actions/checkout@v2'
+        uses: 'actions/checkout@v2.3.4'
       - name: 'log-into-github-registry'
         run: |
           echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -54,7 +54,7 @@ jobs:
     name: 'yamllint'
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v2'
+      - uses: 'actions/checkout@v2.3.4'
       - uses: 'ibiqlik/action-yamllint@master'
         with:
           config_file: '.yamllint'
