@@ -2,19 +2,19 @@ resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags                 = merge(local.defaultTags, var.additionalTags, var.vpc_tags, map("Name", "${var.vpc_name}-${var.env}"))
+  tags                 = merge(local.defaultTags, var.additionalTags, var.vpc_tags, tomap("Name", "${var.vpc_name}-${var.env}"))
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
-  tags = merge(local.defaultTags, var.additionalTags, map("Name", "${var.vpc_name}-${var.env}"))
+  tags = merge(local.defaultTags, var.additionalTags, tomap("Name", "${var.vpc_name}-${var.env}"))
 }
 
 resource "aws_route_table" "default" {
   vpc_id     = aws_vpc.vpc.id
   depends_on = [aws_internet_gateway.igw]
-  tags       = merge(local.defaultTags, var.additionalTags, map("Name", "${var.vpc_name}-${var.env}"))
+  tags       = merge(local.defaultTags, var.additionalTags, tomap("Name", "${var.vpc_name}-${var.env}"))
 }
 
 resource "aws_route" "routes_public" {
