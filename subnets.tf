@@ -3,7 +3,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index)
-  tags              = merge(local.defaultTags, var.additionalTags, var.public_subnet_tags, tomap("Name", "public-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}"))
+  tags              = merge(local.defaultTags, var.additionalTags, var.public_subnet_tags, tomap({ "Name" = "public-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}" }))
 }
 
 resource "aws_subnet" "storage" {
@@ -11,7 +11,7 @@ resource "aws_subnet" "storage" {
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, 4 + count.index)
-  tags              = merge(local.defaultTags, var.additionalTags, var.storage_subnet_tags, tomap("Name", "storage-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}"))
+  tags              = merge(local.defaultTags, var.additionalTags, var.storage_subnet_tags, tomap({ "Name" = "storage-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}" }))
 }
 
 resource "aws_subnet" "rds" {
@@ -19,7 +19,7 @@ resource "aws_subnet" "rds" {
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, 8 + count.index)
-  tags              = merge(local.defaultTags, var.additionalTags, var.rds_subnet_tags, tomap("Name", "rds-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}"))
+  tags              = merge(local.defaultTags, var.additionalTags, var.rds_subnet_tags, tomap({ "Name" = "rds-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}" }))
 }
 
 resource "aws_subnet" "private" {
@@ -27,5 +27,5 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.vpc.id
   availability_zone = element(var.availability_zones, count.index)
   cidr_block        = cidrsubnet(var.vpc_cidr, 4, 2 + count.index)
-  tags              = merge(local.defaultTags, var.additionalTags, var.private_subnet_tags, tomap("Name", "private-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}"))
+  tags              = merge(local.defaultTags, var.additionalTags, var.private_subnet_tags, tomap({ "Name" = "private-${element(var.availability_zones, count.index)}-${var.vpc_name}-${var.env}" }))
 }
