@@ -30,6 +30,11 @@ variable "private_subnet" {
   description = "To enable private subnet set 'true'"
   default     = true
 }
+variable "public_subnet" {
+  type        = bool
+  description = "To enable private subnet set 'true'"
+  default     = true
+}
 variable "private_subnet_tags" {
   type    = map(any)
   default = {}

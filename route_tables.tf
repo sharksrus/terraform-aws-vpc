@@ -5,7 +5,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route" "default_public" {
-  count                  = var.private_subnet ? length(var.availability_zones) : 0
+  count                  = var.public_subnet ? length(var.availability_zones) : 0
   route_table_id         = element(aws_route_table.public[*].id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
