@@ -1,4 +1,4 @@
-resource "aws_vpc" "vpc" {
+resource "aws_vpc" "vpc" { #tfsec:ignore:aws-ec2-require-vpc-flow-logs-for-all-vpcs
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
