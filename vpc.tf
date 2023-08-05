@@ -25,7 +25,7 @@ resource "aws_route" "routes_public" {
 }
 
 resource "aws_main_route_table_association" "main" {
-  count          = var.private_subnet ? length(var.availability_zones) : 0
+  count          = var.private_subnet ? length(data.aws_availability_zones.available) : 0
   vpc_id         = aws_vpc.vpc.id
   route_table_id = aws_route_table.default.id
 }

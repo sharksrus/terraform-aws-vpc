@@ -6,13 +6,13 @@ resource "aws_vpc_endpoint" "private_s3" {
 }
 
 resource "aws_vpc_endpoint_route_table_association" "private_s3" {
-  count           = var.private_subnet ? length(var.availability_zones) : 0
+  count           = var.private_subnet ? length(data.aws_availability_zones.available) : 0
   vpc_endpoint_id = aws_vpc_endpoint.private_s3.id
   route_table_id  = element(aws_route_table.private[*].id, count.index)
 }
 
 resource "aws_vpc_endpoint_route_table_association" "public_s3" {
-  count           = length(var.availability_zones)
+  count           = length(data.aws_availability_zones.available)
   vpc_endpoint_id = aws_vpc_endpoint.private_s3.id
   route_table_id  = element(aws_route_table.public[*].id, count.index)
 }
@@ -24,13 +24,13 @@ resource "aws_vpc_endpoint" "private_dynamo" {
 }
 
 resource "aws_vpc_endpoint_route_table_association" "private_dynamo_main" {
-  count           = var.private_subnet ? length(var.availability_zones) : 0
+  count           = var.private_subnet ? length(data.aws_availability_zones.available) : 0
   vpc_endpoint_id = aws_vpc_endpoint.private_dynamo.id
   route_table_id  = element(aws_route_table.private[*].id, count.index)
 }
 
 resource "aws_vpc_endpoint_route_table_association" "public_dynamo_main" {
-  count           = length(var.availability_zones)
+  count           = length(data.aws_availability_zones.available)
   vpc_endpoint_id = aws_vpc_endpoint.private_dynamo.id
   route_table_id  = element(aws_route_table.public[*].id, count.index)
 }

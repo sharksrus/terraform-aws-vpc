@@ -4,57 +4,66 @@ on:
   pull_request:
     branches:
       - '*'
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
 jobs:
-  terrraform_fmt:
+  terraform-fmt:
     name: 'terraform-fmt'
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'checkout'
-        uses: 'actions/checkout@v2.3.4'
-      - name: 'log-into-github-registry'
-        run: |
-          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: 'terraform-format'
-        id: 'terraform-fmt'
-        run: |
-          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-terraform/terraform:13 fmt -check -diff
-        shell: 'bash'
+      - uses: 'actions/checkout@v2'
+      - name: 'Checkout GitHub actions repo'
+        uses: 'actions/checkout@v2'
+        with:
+          repository: 'sharksrus/github-actions'
+          token: '${{ secrets.SHARK_GITHUB_TOKEN }}'
+          path: '.github/actions'
+          ref: 'main'
+      - name: 'running terraform-fmt'
+        uses: './.github/actions/terraform-fmt'
 
   tflint:
-    name: 'terraform-lint'
+    name: 'tflint'
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'checkout'
-        uses: 'actions/checkout@v2.3.4'
-      - name: 'log-into-github-registry'
-        run: |
-          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: 'tflint'
-        id: 'tflint'
-        run: |
-          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-tflint/tflint:latest .
-        shell: 'bash'
+      - uses: 'actions/checkout@v2'
+      - name: 'Checkout GitHub actions repo'
+        uses: 'actions/checkout@v2'
+        with:
+          repository: 'sharksrus/github-actions'
+          token: '${{ secrets.SHARK_GITHUB_TOKEN }}'
+          path: '.github/actions'
+          ref: 'main'
+      - name: 'running tflint'
+        uses: './.github/actions/tflint'
 
   tfsec:
-    name: 'terraform-security'
+    name: 'tfsec'
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'checkout'
-        uses: 'actions/checkout@v2.3.4'
-      - name: 'log-into-github-registry'
-        run: |
-          echo "${{ secrets.CI_REPOS_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: 'tfsec'
-        id: 'tfsec'
-        run: |
-          docker run -v `pwd`:`pwd` -w `pwd` docker.pkg.github.com/vglen/docker-tfsec/tfsec:latest .
-        shell: 'bash'
+      - uses: 'actions/checkout@v2'
+      - name: 'Checkout GitHub actions repo'
+        uses: 'actions/checkout@v2'
+        with:
+          repository: 'sharksrus/github-actions'
+          token: '${{ secrets.SHARK_GITHUB_TOKEN }}'
+          path: '.github/actions'
+          ref: 'main'
+      - name: 'running tfsec'
+        uses: './.github/actions/tfsec'
 
   yamllint:
     name: 'yamllint'
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v2.3.4'
-      - uses: 'ibiqlik/action-yamllint@master'
+      - uses: 'actions/checkout@v2'
+      - name: 'Checkout GitHub actions repo'
+        uses: 'actions/checkout@v2'
         with:
-          config_file: '.yamllint'
+          repository: 'sharksrus/github-actions'
+          token: '${{ secrets.SHARK_GITHUB_TOKEN }}'
+          path: '.github/actions'
+      - name: 'Run yamllint'
+        uses: './.github/actions/yamllint'
