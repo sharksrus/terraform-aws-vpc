@@ -41,11 +41,6 @@ variable "rds_subnet_tags" {
   type    = map(any)
   default = {}
 }
-variable "region" {
-  type        = string
-  default     = ""
-  description = "AWS Region. i.e us-east-1"
-}
 variable "storage_subnet" {
   type        = bool
   description = "To enable storage subnet set 'true'"

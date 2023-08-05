@@ -5,4 +5,5 @@ locals {
     Product          = var.product
     Owner            = var.owner
   }
+  region = data.aws_region.current.name
 }
