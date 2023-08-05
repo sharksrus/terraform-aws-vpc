@@ -3,20 +3,9 @@ variable "additionalTags" {
   type    = map(any)
   default = {}
 }
-variable "availability_zones" {
-  type        = list(any)
-  description = "A list of availability zones in the region"
-  default     = []
-}
 variable "env" {
   type        = string
   description = "Environment name"
-}
-
-variable "nat_availability_zones" {
-  type        = list(any)
-  description = "A list of availability zones you want to run nat gateway"
-  default     = []
 }
 variable "owner" {
   type = string

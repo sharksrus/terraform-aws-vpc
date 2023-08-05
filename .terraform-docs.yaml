@@ -1,0 +1,6 @@
+---
+formatter: 'markdown'
+header-from: 'header.md'
+footer-from: 'footer.md'
+output:
+  file: 'README.md'
