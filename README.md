@@ -48,22 +48,20 @@ No requirements.
 # TERRAFORM-AWS-VPC
 <!-- markdownlint-disable no-inline-html -->
 
-[![Ci](https://github.com/icariohealth/tf-CHANGE-ME/actions/workflows/ci.yaml/badge.svg)](https://github.com/icariohealth/tf-CHANGE-ME/actions/workflows/ci.yaml)
-```
-```
+[![CI](https://github.com/sharksrus/terraform-aws-vpc/actions/workflows/ci.yaml/badge.svg)](https://github.com/sharksrus/terraform-aws-vpc/actions/workflows/ci.yaml)
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.62.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.11.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.62.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.11.0 |
 
 ## Modules
 
@@ -98,6 +96,7 @@ No modules.
 | [aws_vpc_endpoint_route_table_association.public_dynamo_main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_route_table_association) | resource |
 | [aws_vpc_endpoint_route_table_association.public_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_route_table_association) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -113,7 +112,6 @@ No modules.
 | <a name="input_public_subnet_tags"></a> [public\_subnet\_tags](#input\_public\_subnet\_tags) | n/a | `map(any)` | `{}` | no |
 | <a name="input_rds_subnet"></a> [rds\_subnet](#input\_rds\_subnet) | To enable rds subnet set 'true' | `bool` | `false` | no |
 | <a name="input_rds_subnet_tags"></a> [rds\_subnet\_tags](#input\_rds\_subnet\_tags) | n/a | `map(any)` | `{}` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region. i.e us-east-1 | `string` | `""` | no |
 | <a name="input_storage_subnet"></a> [storage\_subnet](#input\_storage\_subnet) | To enable storage subnet set 'true' | `bool` | `false` | no |
 | <a name="input_storage_subnet_tags"></a> [storage\_subnet\_tags](#input\_storage\_subnet\_tags) | n/a | `map(any)` | `{}` | no |
 | <a name="input_technicalcontact"></a> [technicalcontact](#input\_technicalcontact) | A email to reach out when needed. | `string` | n/a | yes |
